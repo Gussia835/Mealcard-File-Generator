@@ -2,14 +2,13 @@ package ru.mealcard.service.error;
 
 import lombok.Getter;
 import ru.mealcard.Base;
-import ru.mealcard.controller.ErrorHandler;
-import ru.mealcard.exception.FileGenerationException;
+import ru.mealcard.exception.generation.FileGenerationException;
 import ru.mealcard.service.dto.RequestErrorDTO;
 import ru.mealcard.service.format.dto.EnrollDTO;
 import ru.mealcard.service.mock.MockDataService;
+import ru.mealcard.utils.encoding.FileCorruptor;
 import ru.mealcard.utils.filename.FilenameGeneratorUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,4 +1,4 @@
-package ru.mealcard.exception;
+package ru.mealcard.exception.content;
 
 public class BlankFileException extends RuntimeException {
     public BlankFileException(String message) {

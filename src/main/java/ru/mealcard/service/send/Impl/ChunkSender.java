@@ -7,7 +7,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import ru.mealcard.Base;
-import ru.mealcard.exception.SendException;
+import ru.mealcard.exception.send.SendException;
 import ru.mealcard.utils.send_models.Sender;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class ChunkSender extends Base implements Sender {
 
         HttpPost post = new HttpPost(sendTo);
         metadata.forEach((k, v) -> post.setHeader("X-Meta-" + k, v));
-        post.setHeader("X-Filename", filepath.getFileName().toString());
+        post.setHeader("filename", filepath.getFileName().toString());
 
 
         InputStreamEntity entity = new InputStreamEntity(

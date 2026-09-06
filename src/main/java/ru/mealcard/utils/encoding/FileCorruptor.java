@@ -1,9 +1,8 @@
-package ru.mealcard.service.error;
+package ru.mealcard.utils.encoding;
 
 import lombok.Getter;
 import ru.mealcard.Base;
-import ru.mealcard.exception.FileGenerationException;
-import ru.mealcard.utils.encoding.FileEncoding;
+import ru.mealcard.exception.generation.FileGenerationException;
 import ru.mealcard.utils.error.ErrorType;
 
 import java.io.IOException;
@@ -55,6 +54,8 @@ public class FileCorruptor extends Base {
     }
 
     private String spaces(int lineCount) {
+
+
         return ("    \t   \t\t    \n").repeat(lineCount);
     }
 }

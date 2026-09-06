@@ -5,7 +5,7 @@ import ru.mealcard.Base;
 import ru.mealcard.utils.format.Visitor;
 import ru.mealcard.service.format.dto.DataForEnrollDTO;
 import ru.mealcard.service.format.dto.EnrollDTO;
-import ru.mealcard.exception.FileGenerationException;
+import ru.mealcard.exception.generation.FileGenerationException;
 import ru.mealcard.utils.encoding.FileEncoding;
 import ru.mealcard.utils.generate_models.TypeProcedure;
 
@@ -28,20 +28,16 @@ public class EnrollVisitor extends Base implements Visitor<DataForEnrollDTO> {
     private static final int TYPE_LEN = 2;
 
     @Override
-    public Charset getCharset() {
-        return FileEncoding.WINDOWS_1251.getCharset();
-    }
-
-    @Override
     public void visit(Path targetFile, DataForEnrollDTO dto) {
         info("Writing ENROLL file: {}", targetFile.getFileName());
 
         int recordCount = 0;
-        try (BufferedWriter writer = Files.newBufferedWriter(targetFile, getCharset())) {
+        try (BufferedWriter writer = Files.newBufferedWriter(targetFile, FileEncoding.WINDOWS_1251.getCharset())) {
             writeHeader(writer, dto);
 
             for (EnrollDTO record : dto.getRecords()) {
                 writeRecord(writer, record);
+                debug("writting record: {}", record.getFio(), record.getType(), record.getSumm(), record.getAccount());
                 recordCount++;
             }
 

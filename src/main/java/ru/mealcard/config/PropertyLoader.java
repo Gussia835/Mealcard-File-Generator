@@ -2,7 +2,6 @@ package ru.mealcard.config;
 
 import lombok.Getter;
 import ru.mealcard.Base;
-import ru.mealcard.exception.ConfigurationException;
 import ru.mealcard.utils.config.PropertyKeys;
 
 import java.io.IOException;

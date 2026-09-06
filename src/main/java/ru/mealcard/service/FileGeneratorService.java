@@ -1,8 +1,9 @@
 package ru.mealcard.service;
 
+import lombok.Getter;
 import ru.mealcard.Base;
 import ru.mealcard.service.format.dto.DataForEnrollDTO;
-import ru.mealcard.exception.FileGenerationException;
+import ru.mealcard.exception.generation.FileGenerationException;
 import ru.mealcard.utils.format.Visitor;
 import ru.mealcard.utils.generate_models.TypeProcedure;
 import ru.mealcard.utils.filename.FilenameGeneratorUtil;
@@ -16,11 +17,10 @@ public class FileGeneratorService extends Base {
     private final ShedulerService scheduler = ShedulerService.getInstance();
     private final FilenameGeneratorUtil filenameGenerator = FilenameGeneratorUtil.getInstance();
 
+    @Getter
     private static final FileGeneratorService instance = new FileGeneratorService();
 
-    public static FileGeneratorService getInstance() {
-        return instance;
-    }
+
 
     private FileGeneratorService() {
         try {

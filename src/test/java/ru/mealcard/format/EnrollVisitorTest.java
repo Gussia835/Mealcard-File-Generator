@@ -4,13 +4,14 @@ import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import ru.mealcard.exception.FileGenerationException;
-import ru.mealcard.service.format.EnrollVisitor;
+import ru.mealcard.exception.generation.FileGenerationException;
+import ru.mealcard.service.format.impl.EnrollVisitor;
 import ru.mealcard.service.format.dto.DataForEnrollDTO;
 import ru.mealcard.service.format.dto.EnrollDTO;
 import ru.mealcard.utils.generate_models.TypeOperation;
 import ru.mealcard.utils.generate_models.TypeProcedure;
 
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZoneId;
@@ -46,10 +47,16 @@ class EnrollVisitorTest {
     }
 
     private String[] lines(Path file) throws Exception {
-        String content = Files.readString(file);
+        byte[] bytes = Files.readAllBytes(file);
+        String content = new String(bytes, Charset.forName("windows-1251"));
 
-        assertTrue(content.endsWith("\r\n"));
-        return content.split("\r\n", -1);
+        content = content.replaceAll("\r\n", "\n");
+
+        if (content.endsWith("\n")) {
+            content = content.substring(0, content.length() - 1);
+        }
+
+        return content.split("\n", -1);
     }
 
     @Test

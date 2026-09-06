@@ -20,8 +20,8 @@ public class SenderFabric extends Base {
     private SenderFabric() {
         Config config = Config.getInstance();
 
-        createSender(TypeSend.MULTIPART, new MultipartSender(config.getSendUrl()));
-        createSender(TypeSend.CHUNK, new ChunkSender(config.getSendUrl()));
+        createSender(TypeSend.MULTIPART, new MultipartSender(config.getSendUrl()+"/multipart"));
+        createSender(TypeSend.CHUNK, new ChunkSender(config.getSendUrl()+"/chunk"));
         createSender(TypeSend.GRPC, new GrpcSender(config.getGrpcHost(), config.getGrpcPort(), config.getChunkSize()));
     }
 

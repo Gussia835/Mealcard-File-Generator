@@ -6,8 +6,8 @@ import ru.mealcard.Base;
 import ru.mealcard.service.dto.ResponseDTO;
 import ru.mealcard.utils.request.RequestConverterUtil;
 import ru.mealcard.service.dto.MockRequestDTO;
-import ru.mealcard.exception.FileGenerationException;
-import ru.mealcard.exception.InvalidRequestException;
+import ru.mealcard.exception.generation.FileGenerationException;
+import ru.mealcard.exception.request.InvalidRequestException;
 import ru.mealcard.service.mock.MockService;
 import ru.mealcard.service.ResponseService;
 

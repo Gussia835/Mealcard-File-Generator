@@ -2,9 +2,9 @@ package ru.mealcard.service.validator;
 
 import lombok.Getter;
 import ru.mealcard.Base;
-import ru.mealcard.exception.BlankFileException;
-import ru.mealcard.exception.ContentFileException;
-import ru.mealcard.exception.WrongEncodingException;
+import ru.mealcard.exception.content.BlankFileException;
+import ru.mealcard.exception.content.ContentFileException;
+import ru.mealcard.exception.content.WrongEncodingException;
 import ru.mealcard.utils.encoding.EncodingAdapter;
 import ru.mealcard.utils.encoding.FileEncoding;
 
