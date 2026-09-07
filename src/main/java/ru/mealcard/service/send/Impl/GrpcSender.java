@@ -3,15 +3,20 @@ package ru.mealcard.service.send.Impl;
 import com.google.protobuf.ByteString;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
+import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
+import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
 import io.grpc.stub.StreamObserver;
-import proto.FileChunk;
-import proto.FileTransportGrpc;
-import proto.UploadResponse;
+import org.example.grpc.proto.FileChunk;
+import org.example.grpc.proto.GrpcServiceGrpc;
+import org.example.grpc.proto.ResponseGRPC;
 import ru.mealcard.Base;
 import ru.mealcard.exception.send.SendException;
 import ru.mealcard.utils.send_models.Sender;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,12 +28,24 @@ public class GrpcSender extends Base implements Sender {
     private final ManagedChannel channel;
     private final int chunkSize;
 
-    public GrpcSender(String host, int port, int chunkSize) {
-        this.channel = ManagedChannelBuilder
-                .forAddress(host, port)
-                .useTransportSecurity()
-                .build();
-        this.chunkSize = chunkSize;
+    public GrpcSender(String host, int port, int chunkSize) throws IOException {
+
+        try (InputStream resource = GrpcSender.class.getResourceAsStream("/server.crt")) {
+
+            if (resource == null) {
+                throw new IOException("Certificate file 'server.crt' not found in resources root");
+            }
+
+            SslContext sslContext = GrpcSslContexts.forClient()
+                                    .trustManager(resource)
+                                    .build();
+
+            this.channel = NettyChannelBuilder
+                    .forAddress(host, port)
+                    .sslContext(sslContext)
+                    .build();
+            this.chunkSize = chunkSize;
+        }
     }
 
     private static class UploadContext {
@@ -40,7 +57,7 @@ public class GrpcSender extends Base implements Sender {
     @Override
     public void send(Path filepath, Map<String, String> metadata) {
         try {
-            FileTransportGrpc.FileTransportStub stub = FileTransportGrpc.newStub(channel);
+            GrpcServiceGrpc.GrpcServiceStub stub = GrpcServiceGrpc.newStub(channel);
             UploadContext context = new UploadContext();
 
             StreamObserver<FileChunk> requestObserver = openStream(stub, context);
@@ -56,18 +73,18 @@ public class GrpcSender extends Base implements Sender {
         }
     }
 
-    private FileTransportGrpc.FileTransportStub createStub() {
-        return FileTransportGrpc.newStub(channel);
+    private GrpcServiceGrpc.GrpcServiceStub createStub() {
+        return GrpcServiceGrpc.newStub(channel);
     }
 
-    private StreamObserver<FileChunk> openStream(FileTransportGrpc.FileTransportStub stub, UploadContext context) {
+    private StreamObserver<FileChunk> openStream(GrpcServiceGrpc.GrpcServiceStub stub, UploadContext context) {
 
-        StreamObserver<UploadResponse> responseObserver = new StreamObserver<>() {
+        StreamObserver<ResponseGRPC> responseObserver = new StreamObserver<>() {
 
             @Override
-            public void onNext(UploadResponse resp) {
+            public void onNext(ResponseGRPC resp) {
                 info("received response: {}", resp.getStatus());
-                context.uploadId = resp.getRemoteId();
+                context.uploadId = resp.getStatus();
             }
 
             @Override

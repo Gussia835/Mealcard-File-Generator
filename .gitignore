@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+server.crt
+server.key
+src/main/resources/keystore.p12

@@ -37,7 +37,23 @@ public class EncodingAdapter extends Base {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         try {
             Charset charset = detector.detect(byteArrayInputStream, metadata);
-            return charset != null ? charset.name() : null;
+
+            if (charset == null) {
+                return null;
+            }
+
+            String name = charset.name();
+
+            if ("x-MacCyrillic".equalsIgnoreCase(name) ||
+                    "IBM866".equalsIgnoreCase(name) ||
+                    "ISO-8859-5".equalsIgnoreCase(name)) {
+
+                info("Detector guessed {}, forcing Windows-1251 (known generator format)", name);
+                return "Windows-1251";
+            }
+
+            return name;
+
         } catch (IOException e) {
             error("cant detect charset {}", e.getMessage());
             return null;
