@@ -2,10 +2,10 @@
 
 Сервис генерации тестовых файлов банковских ENROLL-форматов с возможностью отправки черезразличные транспортные протоколы (multipart, chunked encoding, gRPC).
 
-## 📋 Project Structure
+## Project Structure
 
 <details>
-  <summary>📂 Нажмите, чтобы посмотреть структуру папок</summary>
+  <summary> Нажмите, чтобы посмотреть структуру папок</summary>
 
 ```text
   ru.mealcard/
