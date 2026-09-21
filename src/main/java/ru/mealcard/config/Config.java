@@ -45,7 +45,12 @@ public class Config extends Base {
     }
 
     public String getSendUrl() {
-        return get(PropertyKeys.SEND_URL_KEY, "http://localhost:8090/upload");
+        String envUrl = System.getenv("SEND_URL");
+        if (envUrl != null && !envUrl.trim().isEmpty()) {
+            return envUrl.trim();
+        }
+
+        return get(PropertyKeys.SEND_URL_KEY, "http://localhost:666/files");
     }
 
     public int getChunkSize() {
@@ -53,10 +58,18 @@ public class Config extends Base {
     }
 
     public String getGrpcHost() {
-        return get(PropertyKeys.GRPC_HOST_KEY, "localhost");
+        String sysHost = System.getProperty("grpc.host");
+        if (sysHost != null && !sysHost.trim().isEmpty()) {
+            return sysHost.trim();
+        }
+        return PROPERTIES.getProperty(PropertyKeys.GRPC_HOST_KEY, "localhost");
     }
 
     public int getGrpcPort() {
-        return Integer.parseInt(get(PropertyKeys.GRPC_PORT_KEY, "50051"));
+        String sysPort = System.getProperty("grpc.port");
+        if (sysPort != null && !sysPort.trim().isEmpty()) {
+            return Integer.parseInt(sysPort.trim());
+        }
+        return Integer.parseInt(PROPERTIES.getProperty(PropertyKeys.GRPC_PORT_KEY, "6666"));
     }
 }

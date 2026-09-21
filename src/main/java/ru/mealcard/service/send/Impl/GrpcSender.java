@@ -29,20 +29,20 @@ public class GrpcSender extends Base implements Sender {
     private final int chunkSize;
 
     public GrpcSender(String host, int port, int chunkSize) throws IOException {
-
         try (InputStream resource = GrpcSender.class.getResourceAsStream("/server.crt")) {
 
             if (resource == null) {
                 throw new IOException("Certificate file 'server.crt' not found in resources root");
             }
 
-            SslContext sslContext = GrpcSslContexts.forClient()
+            /*SslContext sslContext = GrpcSslContexts.forClient()
                                     .trustManager(resource)
-                                    .build();
+                                    .build();*/
 
             this.channel = NettyChannelBuilder
                     .forAddress(host, port)
-                    .sslContext(sslContext)
+                    //.sslContext(sslContext)
+                    .usePlaintext()
                     .build();
             this.chunkSize = chunkSize;
         }

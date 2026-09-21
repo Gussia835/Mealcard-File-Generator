@@ -91,10 +91,8 @@ public class GenerateTest extends IntegrationTest {
         given()
                 .contentType(ContentType.JSON)
                 .body(body)
-
                 .when()
                 .post("/generate")
-
                 .then()
                 .statusCode(400)
                 .body("status", equalTo("ERROR"));

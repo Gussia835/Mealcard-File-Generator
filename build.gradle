@@ -59,13 +59,16 @@ shadowJar {
     archiveBaseName.set('FileGenerator')   // sv-adapter
     archiveVersion.set('1.0')           // -1.0
     archiveClassifier.set('all')        // -all
+
+    mergeServiceFiles()
+
     manifest {
-        attributes 'Main-Class': 'ru.mealcard.Main'
+        attributes 'Main-Class': 'ru.mealcard.GeneratorCards'
     }
 }
 
 application {
-    mainClass = 'ru.mealcard.Main'
+    mainClass = 'ru.mealcard.GeneratorCards'
     applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
 }
 
