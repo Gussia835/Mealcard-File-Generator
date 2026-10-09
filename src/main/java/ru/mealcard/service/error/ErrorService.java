@@ -3,7 +3,7 @@ package ru.mealcard.service.error;
 import lombok.Getter;
 import ru.mealcard.Base;
 import ru.mealcard.exception.generation.FileGenerationException;
-import ru.mealcard.service.dto.RequestErrorDTO;
+import ru.mealcard.service.responseDTO.RequestErrorDTO;
 import ru.mealcard.service.format.dto.EnrollDTO;
 import ru.mealcard.service.mock.MockDataService;
 import ru.mealcard.utils.encoding.FileCorruptor;

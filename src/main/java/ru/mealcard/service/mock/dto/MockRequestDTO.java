@@ -1,4 +1,4 @@
-package ru.mealcard.service.dto;
+package ru.mealcard.service.mock.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

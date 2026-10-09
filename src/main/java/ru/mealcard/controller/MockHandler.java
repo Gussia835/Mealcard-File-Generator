@@ -3,9 +3,9 @@ package ru.mealcard.controller;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import ru.mealcard.Base;
-import ru.mealcard.service.dto.ResponseDTO;
+import ru.mealcard.service.responseDTO.ResponseDTO;
 import ru.mealcard.utils.request.RequestConverterUtil;
-import ru.mealcard.service.dto.MockRequestDTO;
+import ru.mealcard.service.mock.dto.MockRequestDTO;
 import ru.mealcard.exception.generation.FileGenerationException;
 import ru.mealcard.exception.request.InvalidRequestException;
 import ru.mealcard.service.mock.MockService;
@@ -22,7 +22,6 @@ public class MockHandler extends Base implements HttpHandler {
     private final ExecutorService executorService;
 
     public MockHandler(ExecutorService executorService) {
-
         this.executorService = executorService;
     }
 

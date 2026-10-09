@@ -21,7 +21,6 @@ public class PropertyLoader extends Base {
 
     private PropertyLoader() {}
 
-
     public void load(Properties target) {
         String external_path = System.getProperty(EXTERNAL_FILE);
 

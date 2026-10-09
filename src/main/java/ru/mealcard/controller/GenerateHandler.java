@@ -5,9 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 import ru.mealcard.Base;
 import ru.mealcard.exception.generation.FileGenerationException;
 import ru.mealcard.exception.request.InvalidRequestException;
-import ru.mealcard.service.dto.ResponseDTO;
+import ru.mealcard.service.responseDTO.ResponseDTO;
 import ru.mealcard.utils.request.RequestConverterUtil;
-import ru.mealcard.service.dto.GenerateRequestDTO;
+import ru.mealcard.service.generate.dto.GenerateRequestDTO;
 import ru.mealcard.service.generate.GenerateService;
 import ru.mealcard.service.ResponseService;
 

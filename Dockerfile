@@ -15,4 +15,4 @@ COPY --from=builder /app/build/libs/*-all.jar app.jar
 
 EXPOSE 90 6666
 
-CMD ["java", "-Dgrpc.host=receiver", "-Dgrpc.port=6666", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]

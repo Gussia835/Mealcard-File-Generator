@@ -2,15 +2,10 @@ package ru.mealcard.config;
 
 import ru.mealcard.Base;
 import ru.mealcard.utils.config.PropertyKeys;
-import ru.mealcard.utils.encoding.FileEncoding;
-
-import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Properties;
 
 public class Config extends Base {
-
     private static final Properties PROPERTIES = new Properties();
     private static final PropertyLoader PROPERTY_LOADER = PropertyLoader.getInstance();
     private static final Config INSTANCE = new Config();
@@ -28,7 +23,7 @@ public class Config extends Base {
     }
 
     public int getPort() {
-        return Integer.parseInt(get(PropertyKeys.PORT_KEY, "8081"));
+        return Integer.parseInt(get(PropertyKeys.PORT_KEY, "90"));
     }
 
     public int getPoolSize() {
@@ -39,9 +34,8 @@ public class Config extends Base {
         return get(PropertyKeys.ZONE_KEY, "Europe/Moscow");
     }
 
-
     public Path getOutputDir() {
-        return Path.of(get(PropertyKeys.OUTPUT_DIR_KEY, "./out/cards"));
+        return Path.of(get(PropertyKeys.OUTPUT_DIR_KEY, "out/cards"));
     }
 
     public String getSendUrl() {
@@ -49,7 +43,6 @@ public class Config extends Base {
         if (envUrl != null && !envUrl.trim().isEmpty()) {
             return envUrl.trim();
         }
-
         return get(PropertyKeys.SEND_URL_KEY, "http://localhost:666/files");
     }
 
@@ -58,18 +51,18 @@ public class Config extends Base {
     }
 
     public String getGrpcHost() {
-        String sysHost = System.getProperty("grpc.host");
-        if (sysHost != null && !sysHost.trim().isEmpty()) {
-            return sysHost.trim();
+        String envHost = System.getenv("GRPC_HOST");
+        if (envHost != null && !envHost.trim().isEmpty()) {
+            return envHost.trim();
         }
-        return PROPERTIES.getProperty(PropertyKeys.GRPC_HOST_KEY, "localhost");
+        return get(PropertyKeys.GRPC_HOST_KEY, "localhost");
     }
 
     public int getGrpcPort() {
-        String sysPort = System.getProperty("grpc.port");
-        if (sysPort != null && !sysPort.trim().isEmpty()) {
-            return Integer.parseInt(sysPort.trim());
+        String envPort = System.getenv("GRPC_PORT");
+        if (envPort != null && !envPort.trim().isEmpty()) {
+            return Integer.parseInt(envPort.trim());
         }
-        return Integer.parseInt(PROPERTIES.getProperty(PropertyKeys.GRPC_PORT_KEY, "6666"));
+        return Integer.parseInt(get(PropertyKeys.GRPC_PORT_KEY, "6666"));
     }
 }

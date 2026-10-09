@@ -3,7 +3,7 @@ package ru.mealcard.service.send;
 import lombok.Getter;
 import ru.mealcard.Base;
 import ru.mealcard.exception.request.InvalidRequestException;
-import ru.mealcard.service.dto.ResponseDTO;
+import ru.mealcard.service.responseDTO.ResponseDTO;
 import ru.mealcard.service.send.dto.SendRequestDTO;
 import ru.mealcard.service.validator.FileValidator;
 import ru.mealcard.service.validator.RequestValidator;

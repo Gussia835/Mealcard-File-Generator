@@ -3,7 +3,7 @@
     import com.sun.net.httpserver.HttpExchange;
     import lombok.Getter;
     import ru.mealcard.Base;
-    import ru.mealcard.service.dto.ErrorDTO;
+    import ru.mealcard.service.responseDTO.ErrorDTO;
 
     import java.io.OutputStream;
 

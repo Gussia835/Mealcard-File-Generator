@@ -1,10 +1,9 @@
-package ru.mealcard.service.dto;
+package ru.mealcard.service.responseDTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.StringBufferInputStream;
 import java.util.List;
 
 @Getter
