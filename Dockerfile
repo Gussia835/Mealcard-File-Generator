@@ -6,13 +6,19 @@ COPY gradlew build.gradle settings.gradle ./
 COPY src ./src
 
 RUN chmod +x gradlew
-RUN gradle shadowJar --no-daemon
+RUN ./gradlew shadowJar --no-daemon
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-COPY --from=builder /app/build/libs/*-all.jar app.jar
+RUN mkdir -p /app/config /app/logs /app/out/cards
+
+COPY --from=builder /app/build/libs/mealcard-generator.jar app.jar
 
 EXPOSE 90 6666
 
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", \
+            "-Dfile.encoding=UTF-8", \
+            "-Dapp.config=/app/config/app.properties", \
+            "-Dlogback.configurationFile=/app/config/logback.xml", \
+            "-jar", "app.jar"]
