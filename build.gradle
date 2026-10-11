@@ -56,9 +56,7 @@ tasks.register('integrationTest', Test) {
 }
 
 shadowJar {
-    archiveBaseName.set('FileGenerator')   // sv-adapter
-    archiveVersion.set('1.0')           // -1.0
-    archiveClassifier.set('all')        // -all
+    archiveFileName.set('mealcard-generator.jar') 
 
     mergeServiceFiles()
 
