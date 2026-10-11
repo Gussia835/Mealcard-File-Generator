@@ -208,7 +208,7 @@
 ./gradlew clean build
 
 # Запуск с внешними конфигами
-java -Dgenerator.file.config=/path/to/app.properties \
+java -Dapp.config=/path/to/app.properties \
      -Dlogback.configurationFile=/path/to/logback.xml \
      -jar build/libs/mealcard-generator.jar
 
